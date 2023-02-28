@@ -58,7 +58,7 @@
 .menu-item a{
   color:rgba(255,255,255, 0.721);
   text-decoration: none;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .menu-item i{
@@ -89,7 +89,7 @@
   padding: 10px;
 }
 
-.anchor{
+.anchor1{
   color:white !important;
   font-size: 18px !important;
 }

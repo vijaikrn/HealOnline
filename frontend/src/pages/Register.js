@@ -33,13 +33,13 @@ toast.error("something went wrong")
 <Form layout='vertical'onFinish={onFinish}>
 
 <Form.Item label="Name" name="name">
-  <Input placeholder='Name'/>
+  <Input className='login-input'  placeholder='Name'/>
   </Form.Item>
   <Form.Item label="Email" name="email">
-  <Input placeholder='Email'/>
+  <Input className='login-input' placeholder='Email'/>
   </Form.Item>
   <Form.Item label="Password" name="password">
-  <Input placeholder='Password' type='password'/>
+  <Input className='login-input' placeholder='Password' type='password'/>
   </Form.Item>
 <Button className='primary-button mt-3 mb-3' htmlType='submit'>REGISTER</Button>
 <Link to='/login' className='anchor'>Click here to Login</Link>

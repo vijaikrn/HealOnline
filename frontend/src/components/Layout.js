@@ -1,11 +1,14 @@
-import { Button } from 'antd/es/radio'
+
 import React, { useState } from 'react'
+import { Link,  useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom'
+
+
 import './layout.css'
 function Layout({ children }) {
     const [collapsed, setCollapsed] = useState(false)
     const { user } = useSelector((state) => state.user)
+    const navigate = useNavigate()
     const location = useLocation()
     const userMenu = [
         {
@@ -16,7 +19,7 @@ function Layout({ children }) {
         {
             name: 'Appointments',
             path: '/appointments',
-            icon: 'ri-shield-cross-line'
+            icon: 'ri-hospital-fill'
         },
         {
             name: 'Book a Doc',
@@ -29,10 +32,11 @@ function Layout({ children }) {
             icon: 'ri-user-line'
         },
         {
-            name: 'Logout',
-            path: '/logout',
-            icon: 'ri-logout-box-line'
-        }
+            name: 'Doctor Registration',
+            path: '/apply-doctor',
+            icon: 'ri-shield-cross-line'
+        },
+
     ]
 
     const adminMenu = [
@@ -56,14 +60,11 @@ function Layout({ children }) {
             path: '/profile',
             icon: 'ri-user-line'
         },
-        {
-            name: 'Logout',
-            path: '/logout',
-            icon: 'ri-logout-box-line'
-        }
+
     ]
 
-    const menuToBeRendered = (user && user.isAdmin)  ? adminMenu : userMenu
+    // const menuToBeRendered = (user && user.isAdmin)?adminMenu:userMenu
+    const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
     return (
         <div className='main '>
             <div className='d-flex layout'>
@@ -81,6 +82,13 @@ function Layout({ children }) {
                             </div>
                         })}
                     </div>
+                    <div className={`d-flex menu-item`} onClick={() => {
+                        localStorage.clear()
+                        navigate('/login')
+                    }}>
+                        <i className='ri-logout-box-line'></i>
+                        {!collapsed && <Link to='/login'>Logout</Link>}
+                    </div>
                 </div>
                 <div className='content'>
                     <div className='header'>
@@ -90,7 +98,7 @@ function Layout({ children }) {
                             )}
                         <div className='d-flex align-items-center px-3'>
                             <i className="ri-notification-3-line header-action-icon mr-2"></i>
-                            <Link className='anchor' to='/profile'>{user && user.name}</Link>
+                            <Link className='anchor1' to='/profile'>{user && user.name}</Link>
                         </div>
                     </div>
                     <div className='body'>

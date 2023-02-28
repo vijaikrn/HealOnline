@@ -7,8 +7,9 @@ import axios from 'axios'
 import { hideLoading, showLoading } from '../redux/alertSlice'
 
 
+
 function Login() {
-  const {loading} = useSelector(state => state.alerts)
+  const { loading } = useSelector(state => state.alerts)
   const dispatch = useDispatch()
   console.log(loading);
   const navigate = useNavigate()
@@ -40,10 +41,10 @@ function Login() {
 
 
           <Form.Item label="Email" name="email">
-            <Input placeholder='Email' />
+            <Input className='login-input' placeholder='Email' />
           </Form.Item>
           <Form.Item label="Password" name="password">
-            <Input placeholder='Password' type='password' />
+            <Input className='login-input' placeholder='Password' type='password' />
           </Form.Item>
           <Button className='primary-button mt-3 mb-3' htmlType='submit'>LOG-IN</Button>
           <Link to='/register' className='anchor'>Click here to Register</Link>

@@ -61,13 +61,14 @@ const login = async (req, res) => {
 const getUserInfoById = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.userId });
+    user.password = undefined
     if (!user) {
       res.status(200).send({ message: "user does not exist", success: false });
     } else {
       res.status(200).send({
         message: "user info",
         success: true,
-        data: { name: user.name, email: user.email },
+        data: user,
       });
     }
   } catch (error) {
