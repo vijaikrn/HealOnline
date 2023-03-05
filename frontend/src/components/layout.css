@@ -22,8 +22,18 @@
   
 }
 
+  .badgeN{
+    background-color: #28808c !important;
+    font-size: 20px;
+    border-style: none;
+  }
+.badgei{
+  background-color: #28808c !important;
+  border-radius: 100%;
+  font-size: 10px;
+  background-color: red !important;
   
-
+}
 .content {
   width: 100%;
   height: 100%;
@@ -86,9 +96,12 @@
   font-size: 30px;
   color:white;
   cursor:pointer;
-  padding: 10px;
+  padding-left: 10px;
 }
-
+.ant-scroll-number-only-unit{
+  padding-right: -10px !important;
+  padding-bottom: -10px !important;
+}
 .anchor1{
   color:white !important;
   font-size: 18px !important;

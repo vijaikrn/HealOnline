@@ -14,4 +14,21 @@ router.post(
   userController.getUserInfoById
 );
 
+router.post(
+  "/apply-doctor-account",
+  authMiddleware,
+  userController.applyDoctor
+);
+
+router.post(
+  "/mark-all-notifications-as-seen",
+  authMiddleware,
+  userController.seenNotifications
+);
+
+router.post(
+  "/delete-all-notifications",
+  authMiddleware,
+  userController.deleteNotifications
+);
 module.exports = router;

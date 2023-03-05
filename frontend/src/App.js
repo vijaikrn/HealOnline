@@ -8,6 +8,9 @@ import { useSelector } from "react-redux";
 import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ApplyDoctor from "./pages/ApplyDoctor";
+import Notifications from "./pages/Notifications";
+import Doctorslist from "./pages/Admin/Doctorslist";
+import Userslist from "./pages/Admin/Userslist";
 
 
 function App() {
@@ -29,6 +32,12 @@ function App() {
         <Route path="/" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
 
         <Route path="/apply-doctor" element={<ProtectedRoute> <ApplyDoctor /> </ProtectedRoute>} />
+
+        <Route path="/notifications" element={<ProtectedRoute> <Notifications /> </ProtectedRoute>} />
+
+        <Route path="/admin/doctorslist" element={<ProtectedRoute> <Doctorslist /> </ProtectedRoute>} />
+        
+        <Route path="/admin/userslist" element={<ProtectedRoute> <Userslist /> </ProtectedRoute>} />
 
 
 

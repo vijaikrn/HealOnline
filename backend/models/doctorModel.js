@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const doctorSchema = new mongoose.schema({
+const doctorSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true,
@@ -33,14 +33,17 @@ const doctorSchema = new mongoose.schema({
     type: Number,
     required: true,
   },
-  fromTime: {
-    type: String,
+  timings: {
+    type: Array,
     required: true,
   },
-  toTime: {
-    type: String,
-    required: true,
-  },
+  
+  status:{
+    type:String,
+    default:"pending"
+  }
+},{
+  timestamps:true
 });
 
 const doctorModel = mongoose.model("doctors", doctorSchema);

@@ -40,7 +40,7 @@ function Login() {
         <Form layout='vertical' onFinish={onFinish}>
 
 
-          <Form.Item label="Email" name="email">
+          <Form.Item  label="Email" name="email">
             <Input className='login-input' placeholder='Email' />
           </Form.Item>
           <Form.Item label="Password" name="password">

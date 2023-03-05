@@ -1,82 +1,142 @@
-import { Col, Form, Input, Row, TimePicker } from 'antd'
-
+import { Button, Col, Form, Input, Row, TimePicker } from 'antd'
+import axios from 'axios'
 import React from 'react'
+import toast from 'react-hot-toast'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout'
+import { hideLoading, showLoading } from '../redux/alertSlice'
+
 
 
 function ApplyDoctor() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { user } = useSelector((state) => state.user)
+    const onFinish = async (values) => {
+        try {
+            dispatch(showLoading())
+            const response = await axios.post('http://localhost:5000/api/user/apply-doctor-account', { ...values, userId: user._id }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            console.log(response.data);
+            dispatch(hideLoading())
+            if (response.data.success) {
+                toast.success(response.data.message)
+                navigate('/home')
+            } else {
+                toast.error(response.data.message)
+            }
+        } catch (error) {
+            dispatch(hideLoading())
+            toast.error("Something went wrong")
+        }
+    }
+
+
     return (
         <Layout>
-            <h1 className='page-title'>Apply for providing service as Doctor</h1>
+             <h1 className="card-title mt-3">Doctor Service Application</h1>
             <hr />
-            <Form layout='vertical' style={{ paddingLeft: '20px' }}>
-                <h4>General Info</h4>
-                <Row gutter={20} style={{
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }} >
-                    <Col style={{ display: 'inline-block' }} span={24} xs={24} sm={24} lg={8} >
-                        <Form.Item style={{ display: 'inline-block' }} label='First Name' name='firstName' rules={[{ required: true }]}>
-                            <Input type="text" style={{ width: '300px' }} placeholder='First Name' />
-                        </Form.Item>
-                    </Col>
-                    <Col style={{ display: 'inline-block' }} span={8} xs={24} sm={24} lg={8}>
-                        <Form.Item style={{ display: 'inline-block' }} label='Last Name' name='lastName' rules={[{ required: true }]}>
-                            <Input type="text" style={{ width: '300px' }} placeholder='Last Name' />
-                        </Form.Item>
-                    </Col>
-                    <Col style={{ display: 'inline-block' }} span={8} xs={24} sm={24} lg={8}>
-                        <Form.Item style={{ display: 'inline-block' }} label='Phone' name='phoneNumber' rules={[{ required: true }]}>
-                            <Input type="text" style={{ width: '300px' }} placeholder='Mobile Number' />
-                        </Form.Item>
-                    </Col>
-                    <Col style={{ display: 'inline-block' }} span={8} xs={24} sm={24} lg={8}>
-                        <Form.Item style={{ display: 'inline-block' }} label='E-mail' name='email' rules={[{ required: true }]}>
-                            <Input type="text" style={{ width: '300px' }} placeholder='Email address' />
-                        </Form.Item>
-                    </Col>
+            <Form layout='vertical' onFinish={onFinish} style={{ paddingLeft: '20px' }}>
+            <h1 className="card-title mt-3">General Info</h1>
+                <Row gutter={20}>
+        <Col span={8} xs={24} sm={24} lg={8}>
+          <Form.Item
+            required
+            label="First Name"
+            name="firstName"
+            rules={[{ required: true }]}
+          >
+            <Input placeholder="First Name" />
+          </Form.Item>
+        </Col>
+        <Col span={8} xs={24} sm={24} lg={8}>
+          <Form.Item
+            required
+            label="Last Name"
+            name="secondName"
+            rules={[{ required: true }]}
+          >
+            <Input placeholder="Last Name" />
+          </Form.Item>
+        </Col>
+        <Col span={8} xs={24} sm={24} lg={8}>
+          <Form.Item
+            required
+            label="Phone Number"
+            name="phoneNumber"
+            rules={[{ required: true }]}
+          >
+            <Input placeholder="Phone Number" />
+          </Form.Item>
+        </Col>
+        
+        
+      </Row>
+      <hr />
+      <h1 className="card-title mt-3">Professional Information</h1>
+      <Row gutter={20}>
+        <Col span={8} xs={24} sm={24} lg={8}>
+          <Form.Item
+            required
+            label="Doctor License Number"
+            name="licenseNumber"
+            rules={[{ required: true }]}
+          >
+            <Input placeholder="License Number" />
+          </Form.Item>
+        </Col>
+        <Col span={8} xs={24} sm={24} lg={8}>
+          <Form.Item
+            required
+            label="Specialization"
+            name="specialization"
+            rules={[{ required: true }]}
+          >
+            <Input placeholder="Specialization" />
+          </Form.Item>
+        </Col>
+        <Col span={8} xs={24} sm={24} lg={8}>
+          <Form.Item
+            required
+            label="Experience"
+            name="experience"
+            rules={[{ required: true }]}
+          >
+            <Input placeholder="Experience" type="number" />
+          </Form.Item>
+        </Col>
+        <Col span={8} xs={24} sm={24} lg={8}>
+          <Form.Item
+            required
+            label="Fee Per Consultation"
+            name="fee"
+            rules={[{ required: true }]}
+          >
+            <Input placeholder="Fee Per Cunsultation" type="number" />
+          </Form.Item>
+        </Col>
+        <Col span={8} xs={24} sm={24} lg={8}>
+          <Form.Item
+            required
+            label="Timings"
+            name="timings"
+            rules={[{ required: true }]}
+          >
+            <TimePicker.RangePicker format="HH:mm" />
+          </Form.Item>
+        </Col>
+      </Row>
 
-
-                </Row>
-                <hr />
-                <h4>Professional Info</h4>
-                <Row gutter={20} style={{
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }} >
-                    <Col style={{ display: 'inline-block' }} span={24} xs={24} sm={24} lg={8} >
-                        <Form.Item style={{ display: 'inline-block' }} label='Doctor License Number' name='licenseNumber' rules={[{ required: true }]}>
-                            <Input type="text" style={{ width: '300px' }} placeholder='Enter your doctor license number' />
-                        </Form.Item>
-                    </Col>
-                    <Col style={{ display: 'inline-block' }} span={8} xs={24} sm={24} lg={8}>
-                        <Form.Item style={{ display: 'inline-block' }} label='Specialization' name='specialization' rules={[{ required: true }]}>
-                            <Input type="text" style={{ width: '300px' }} placeholder='Specialization' />
-                        </Form.Item>
-                    </Col>
-                    <Col style={{ display: 'inline-block' }} span={8} xs={24} sm={24} lg={8}>
-                        <Form.Item style={{ display: 'inline-block' }} label='Experience' name='experience' rules={[{ required: true }]}>
-                            <Input type="text" style={{ width: '300px' }} placeholder='Enter your experience details' />
-                        </Form.Item>
-                    </Col>
-                    <Col style={{ display: 'inline-block' }} span={8} xs={24} sm={24} lg={8}>
-                        <Form.Item style={{ display: 'inline-block' }} label='Fee Per Consultation' name='fee' rules={[{ required: true }]}>
-                            <Input type="text" style={{ width: '300px' }} placeholder='Enter the fee per consultation' />
-                        </Form.Item>
-                    </Col>
-                    <Col style={{ display: 'inline-block' }} span={8} xs={24} sm={24} lg={8}>
-                        <Form.Item style={{ display: 'inline-block' }} label='Timings' name='fee' rules={[{ required: true }]}>
-                        <TimePicker.RangePicker />
-                        </Form.Item>
-                    </Col>
-                    
-                   
-                  
-                  
-
-                </Row>
-               
-            </Form>
+      <div className="d-flex justify-content-center">
+        <Button className="primary-button" htmlType="submit">
+          SUBMIT
+        </Button>
+      </div>
+    </Form>
         </Layout>
     )
 }

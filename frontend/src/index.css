@@ -37,8 +37,16 @@ label {
   font-weight: normal;
   color: black !important;
 }
-.ant-form-item {
-  margin: 10px 0 !important;
+.ant-form-item{
+  margin: 10px 0 !important;; 
+}
+.ant-picker-input input{
+  border: none !important;
+}
+.ant-picker{
+  border-radius: 2px !important;
+  border: 1px solid rgba(128, 128, 128, 0.521) !important;
+  height: 40px !important;
 }
 
 /* common styling */
@@ -81,7 +89,7 @@ label {
   border-color: #28808c;
   color: white;
   height: 40px;
-  width: 100%;
+  width: 200px !important;
   font-size: 16px;
 }
 
