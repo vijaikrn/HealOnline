@@ -1,3 +1,12 @@
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
 /* antd override */
 input {
   border-radius: 2px !important;
@@ -78,6 +87,14 @@ label {
   text-align: center;
 }
 
+.doc-app-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(213, 213, 213);
+  
+}
+
 .normal-text {
   font-size: 1rem;
 }
@@ -130,4 +147,16 @@ label {
 
 .authentication-form {
   width: 400px;
+}
+
+.authentication-form-doctor{
+  width:600px
+}
+
+.doctorapplication-header{
+  background-color: #28808c;
+  height: 80px;
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  align-items: center; /* centers vertically */
 }

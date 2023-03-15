@@ -4,12 +4,12 @@ import { Button, Form, Input } from 'antd'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
-import { hideLoading, showLoading } from '../redux/alertSlice'
-import { authentication } from '../Firebase/config';
+import { hideLoading, showLoading } from '../../redux/alertSlice'
+import { authentication } from '../../Firebase/config';
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
 
-function Register() {
+function DoctorRegistration() {
   const countryCode = "+91"
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -43,12 +43,12 @@ function Register() {
         confirmationResult.confirm(OTP).then(async(result) => {
           const user = result.user
           dispatch(showLoading())
-          const response =await axios.post('http://localhost:5000/api/user/register', values)
+          const response =await axios.post('http://localhost:5000/api/doctor/register', values)
           dispatch(hideLoading())
           if (response.data.success) {
             toast.success(response.data.message)
             toast("Redirecting to login page")
-            navigate("/login")
+            navigate("/doctor-login")
           } else {
             toast.error(response.data.message)
           }
@@ -122,7 +122,7 @@ function Register() {
 
       <div className='authentication-form card p-2'>
         <h1 className='card-title'>HEAL-ONLINE</h1>
-
+<h6>Doctor Registration</h6>
         <Form layout='vertical' onFinish={onFinish} >
 
           <Form.Item label="Name" name="name">
@@ -160,11 +160,11 @@ function Register() {
 
 
           <Button className='primary-button mt-3 mb-3' htmlType='submit'>REGISTER</Button>
-          <Link to='/login' style={{ marginLeft: '1rem' }} className='anchor'>Click here to Login</Link>
+          <Link to='/doctor-login' style={{ marginLeft: '1rem' }} className='anchor'>Click here to Login</Link>
         </Form>
       </div>
     </div>
   )
 }
 
-export default Register
+export default DoctorRegistration

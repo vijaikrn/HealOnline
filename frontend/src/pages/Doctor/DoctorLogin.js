@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form, Input } from 'antd'
 import toast from 'react-hot-toast'
 import axios from 'axios'
-import { hideLoading, showLoading } from '../redux/alertSlice'
+import { hideLoading, showLoading } from '../../redux/alertSlice'
 
 
 
-function Login() {
+function DoctorLogin() {
   const { loading } = useSelector(state => state.alerts)
   const dispatch = useDispatch()
   console.log(loading);
@@ -16,13 +16,13 @@ function Login() {
   const onFinish = async (values) => {
     try {
       dispatch(showLoading())
-      const response = await axios.post("http://localhost:5000/api/user/login", values)
+      const response = await axios.post("http://localhost:5000/api/doctor/login", values)
       dispatch(hideLoading())
       if (response.data.success) {
         toast.success(response.data.message)
         toast("Redirecting to home page")
         localStorage.setItem("token", response.data.data)
-        navigate("/")
+        navigate("/doctor/home")
       } else {
         toast.error(response.data.message)
       }
@@ -37,6 +37,7 @@ function Login() {
     <div className='authentication'>
       <div className='authentication-form card p-2'>
         <h1 className='card-title'>HEAL-ONLINE</h1>
+        <h6>Doctor Login</h6>
         <Form layout='vertical' onFinish={onFinish}>
 
 
@@ -47,11 +48,11 @@ function Login() {
             <Input className='login-input' placeholder='Password' type='password' />
           </Form.Item>
           <Button className='primary-button mt-3 mb-3' htmlType='submit'>LOG-IN</Button>
-          <Link to='/register' className='anchor'>Click here to Register</Link>
+          <Link to='/doctor-register' className='anchor'>Click here to Register</Link>
         </Form>
       </div>
     </div>
   )
 }
 
-export default Login
+export default DoctorLogin

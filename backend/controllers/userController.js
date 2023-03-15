@@ -80,41 +80,7 @@ const getUserInfoById = async (req, res) => {
   }
 };
 
-const applyDoctor = async (req, res) => {
-  try {
-    // const {} = req.body
-    console.log(req.body);
-    const newdoctor = new Doctor({ ...req.body, status: "pending" });
-    await newdoctor.save();
-    console.log("newdoctor");
-    const adminUser = await User.findOne({ isAdmin: true });
-    if (adminUser) {
-      console.log(adminUser);
-      const unseenNotifications = adminUser.unseenNotifications;
-      unseenNotifications.push({
-        type: "new-doctor-request",
-        message: `${newdoctor.firstName} ${newdoctor.secondName} has applied for a doctor account`,
-        data: {
-          doctorId: newdoctor._id,
-          name: newdoctor.firstName + " " + newdoctor.secondName,
-        },
-        onClickPath: "/admin/doctors",
-      });
-      await User.findByIdAndUpdate(adminUser._id, { unseenNotifications });
-      console.log("working");
-      res.status(200).send({
-        success: true,
-        message: "Doctor account applied successfully",
-      });
-    }
-  } catch (error) {
-    res.status(500).send({
-      message: "Error applying doctor account",
-      success: false,
-      error,
-    });
-  }
-};
+
 
 const seenNotifications = async (req, res) => {
   try {
@@ -165,7 +131,7 @@ module.exports = {
   register,
   login,
   getUserInfoById,
-  applyDoctor,
+  
   seenNotifications,
   deleteNotifications,
 };

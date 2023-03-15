@@ -8,6 +8,7 @@ import { Badge } from "antd";
 function Layout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.user);
+  const {doctor} = useSelector((state)=> state.doctor)
   const navigate = useNavigate();
   const location = useLocation();
   const userMenu = [
@@ -58,6 +59,33 @@ function Layout({ children }) {
       name: "profile",
       path: "/profile",
       icon: "ri-user-line",
+    },
+  ];
+  const doctorMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "ri-home-smile-line",
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      icon: "ri-hospital-fill",
+    },
+    {
+      name: "Book a Doc",
+      path: "/book",
+      icon: "ri-calendar-check-line",
+    },
+    {
+      name: "profile",
+      path: "/profile",
+      icon: "ri-user-line",
+    },
+    {
+      name: "Doctor Registration",
+      path: "/apply-doctor",
+      icon: "ri-shield-cross-line",
     },
   ];
 

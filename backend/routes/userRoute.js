@@ -14,11 +14,7 @@ router.post(
   userController.getUserInfoById
 );
 
-router.post(
-  "/apply-doctor-account",
-  authMiddleware,
-  userController.applyDoctor
-);
+
 
 router.post(
   "/mark-all-notifications-as-seen",
